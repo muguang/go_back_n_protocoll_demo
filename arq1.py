@@ -1,0 +1,162 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'ARQ1.ui'
+#
+# Created by: PyQt4 UI code generator 4.11.4
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui
+
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
+
+class Ui_MainWindow(QtGui):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName(_fromUtf8("MainWindow"))
+        MainWindow.resize(1201, 648)
+        self.centralwidget = QtGui.QWidget(MainWindow)
+        self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
+        self.horizontalLayoutWidget_2 = QtGui.QWidget(self.centralwidget)
+        self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(0, 550, 1196, 76))
+        self.horizontalLayoutWidget_2.setObjectName(_fromUtf8("horizontalLayoutWidget_2"))
+        self.horizontalLayout_3 = QtGui.QHBoxLayout(self.horizontalLayoutWidget_2)
+        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
+        self.re1 = QtGui.QTextEdit(self.horizontalLayoutWidget_2)
+        self.re1.setObjectName(_fromUtf8("re1"))
+        self.horizontalLayout_3.addWidget(self.re1)
+        self.re2 = QtGui.QTextEdit(self.horizontalLayoutWidget_2)
+        self.re2.setObjectName(_fromUtf8("re2"))
+        self.horizontalLayout_3.addWidget(self.re2)
+        self.re3 = QtGui.QTextEdit(self.horizontalLayoutWidget_2)
+        self.re3.setObjectName(_fromUtf8("re3"))
+        self.horizontalLayout_3.addWidget(self.re3)
+        self.re4 = QtGui.QTextEdit(self.horizontalLayoutWidget_2)
+        self.re4.setObjectName(_fromUtf8("re4"))
+        self.horizontalLayout_3.addWidget(self.re4)
+        self.re5 = QtGui.QTextEdit(self.horizontalLayoutWidget_2)
+        self.re5.setObjectName(_fromUtf8("re5"))
+        self.horizontalLayout_3.addWidget(self.re5)
+        self.re6 = QtGui.QTextEdit(self.horizontalLayoutWidget_2)
+        self.re6.setObjectName(_fromUtf8("re6"))
+        self.horizontalLayout_3.addWidget(self.re6)
+        self.re7 = QtGui.QTextEdit(self.horizontalLayoutWidget_2)
+        self.re7.setObjectName(_fromUtf8("re7"))
+        self.horizontalLayout_3.addWidget(self.re7)
+        self.re8 = QtGui.QTextEdit(self.horizontalLayoutWidget_2)
+        self.re8.setObjectName(_fromUtf8("re8"))
+        self.horizontalLayout_3.addWidget(self.re8)
+        self.re9 = QtGui.QTextEdit(self.horizontalLayoutWidget_2)
+        self.re9.setObjectName(_fromUtf8("re9"))
+        self.horizontalLayout_3.addWidget(self.re9)
+        self.re10 = QtGui.QTextEdit(self.horizontalLayoutWidget_2)
+        self.re10.setObjectName(_fromUtf8("re10"))
+        self.horizontalLayout_3.addWidget(self.re10)
+        self.re11 = QtGui.QTextEdit(self.horizontalLayoutWidget_2)
+        self.re11.setObjectName(_fromUtf8("re11"))
+        self.horizontalLayout_3.addWidget(self.re11)
+        self.re12 = QtGui.QTextEdit(self.horizontalLayoutWidget_2)
+        self.re12.setObjectName(_fromUtf8("re12"))
+        self.horizontalLayout_3.addWidget(self.re12)
+        self.re13 = QtGui.QTextEdit(self.horizontalLayoutWidget_2)
+        self.re13.setObjectName(_fromUtf8("re13"))
+        self.horizontalLayout_3.addWidget(self.re13)
+        self.re14 = QtGui.QTextEdit(self.horizontalLayoutWidget_2)
+        self.re14.setObjectName(_fromUtf8("re14"))
+        self.horizontalLayout_3.addWidget(self.re14)
+        self.re15 = QtGui.QTextEdit(self.horizontalLayoutWidget_2)
+        self.re15.setObjectName(_fromUtf8("re15"))
+        self.horizontalLayout_3.addWidget(self.re15)
+        self.horizontalLayoutWidget_3 = QtGui.QWidget(self.centralwidget)
+        self.horizontalLayoutWidget_3.setGeometry(QtCore.QRect(0, 240, 1196, 76))
+        self.horizontalLayoutWidget_3.setObjectName(_fromUtf8("horizontalLayoutWidget_3"))
+        self.horizontalLayout_5 = QtGui.QHBoxLayout(self.horizontalLayoutWidget_3)
+        self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
+        self.sen1 = QtGui.QTextEdit(self.horizontalLayoutWidget_3)
+        self.sen1.setObjectName(_fromUtf8("sen1"))
+        self.horizontalLayout_5.addWidget(self.sen1)
+        self.sen2 = QtGui.QTextEdit(self.horizontalLayoutWidget_3)
+        self.sen2.setObjectName(_fromUtf8("sen2"))
+        self.horizontalLayout_5.addWidget(self.sen2)
+        self.sen3 = QtGui.QTextEdit(self.horizontalLayoutWidget_3)
+        self.sen3.setObjectName(_fromUtf8("sen3"))
+        self.horizontalLayout_5.addWidget(self.sen3)
+        self.sen4 = QtGui.QTextEdit(self.horizontalLayoutWidget_3)
+        self.sen4.setObjectName(_fromUtf8("sen4"))
+        self.horizontalLayout_5.addWidget(self.sen4)
+        self.sen5 = QtGui.QTextEdit(self.horizontalLayoutWidget_3)
+        self.sen5.setObjectName(_fromUtf8("sen5"))
+        self.horizontalLayout_5.addWidget(self.sen5)
+        self.sen6 = QtGui.QTextEdit(self.horizontalLayoutWidget_3)
+        self.sen6.setObjectName(_fromUtf8("sen6"))
+        self.horizontalLayout_5.addWidget(self.sen6)
+        self.sen7 = QtGui.QTextEdit(self.horizontalLayoutWidget_3)
+        self.sen7.setObjectName(_fromUtf8("sen7"))
+        self.horizontalLayout_5.addWidget(self.sen7)
+        self.sen8 = QtGui.QTextEdit(self.horizontalLayoutWidget_3)
+        self.sen8.setObjectName(_fromUtf8("sen8"))
+        self.horizontalLayout_5.addWidget(self.sen8)
+        self.sen9 = QtGui.QTextEdit(self.horizontalLayoutWidget_3)
+        self.sen9.setObjectName(_fromUtf8("sen9"))
+        self.horizontalLayout_5.addWidget(self.sen9)
+        self.sen10 = QtGui.QTextEdit(self.horizontalLayoutWidget_3)
+        self.sen10.setObjectName(_fromUtf8("sen10"))
+        self.horizontalLayout_5.addWidget(self.sen10)
+        self.sen11 = QtGui.QTextEdit(self.horizontalLayoutWidget_3)
+        self.sen11.setObjectName(_fromUtf8("sen11"))
+        self.horizontalLayout_5.addWidget(self.sen11)
+        self.sen12 = QtGui.QTextEdit(self.horizontalLayoutWidget_3)
+        self.sen12.setObjectName(_fromUtf8("sen12"))
+        self.horizontalLayout_5.addWidget(self.sen12)
+        self.sen13 = QtGui.QTextEdit(self.horizontalLayoutWidget_3)
+        self.sen13.setObjectName(_fromUtf8("sen13"))
+        self.horizontalLayout_5.addWidget(self.sen13)
+        self.sen14 = QtGui.QTextEdit(self.horizontalLayoutWidget_3)
+        self.sen14.setObjectName(_fromUtf8("sen14"))
+        self.horizontalLayout_5.addWidget(self.sen14)
+        self.sen15 = QtGui.QTextEdit(self.horizontalLayoutWidget_3)
+        self.sen15.setObjectName(_fromUtf8("sen15"))
+        self.horizontalLayout_5.addWidget(self.sen15)
+        self.pushButton = QtGui.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(20, 60, 121, 41))
+        self.pushButton.setObjectName(_fromUtf8("pushButton"))
+        self.pushButton_2 = QtGui.QPushButton(self.centralwidget)
+        self.pushButton_2.setGeometry(QtCore.QRect(20, 130, 121, 41))
+        self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
+        self.pushButton_3 = QtGui.QPushButton(self.centralwidget)
+        self.pushButton_3.setGeometry(QtCore.QRect(1040, 90, 121, 41))
+        self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.statusbar = QtGui.QStatusBar(MainWindow)
+        self.statusbar.setObjectName(_fromUtf8("statusbar"))
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
+        self.pushButton.setText(_translate("MainWindow", "Stop-And-Wait ARQ", None))
+        self.pushButton_2.setText(_translate("MainWindow", "Go-Back-N ARQ", None))
+        self.pushButton_3.setText(_translate("MainWindow", "Stop", None))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtGui.QApplication(sys.argv)
+    MainWindow = QtGui.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())

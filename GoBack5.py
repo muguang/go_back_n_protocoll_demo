@@ -25,6 +25,8 @@ class GoBack(object):
 		self.timerIndex = 0
 
 
+		#  interface
+
 		self.senderFace = [0] * (self.sw + 1)
 		self.revFace = [0] * (self.sw + 1)
 		self.sizeFace = [0] * (self.sw + 1)
@@ -59,9 +61,9 @@ class GoBack(object):
 
 					if i == (num - 1):
 						# self.error = 1
-						print('sn is: ' + str(sn) + ' rn is: ' + str(self.rn) + ' sf is :' + str(
-							self.sf) + ' ack is :' + str(self.ack))
-						# print self.data[0:2]
+						 #print('sn is: ' + str(sn) + ' rn is: ' + str(self.rn) + ' sf is :' + str(
+						#	self.sf) + ' ack is :' + str(self.ack))
+						# ##print self.data[0:2]
 						self.timerInLock.acquire()
 						if self.timerIn == 1:
 							self.error = 1
@@ -122,7 +124,7 @@ class GoBack(object):
 			else:
 				data = self.framer[self.sn]
 
-			print ('Sending: ' + str(self.sn))
+			#print ('Sending: ' + str(self.sn))
 			if self.check_OK(random_right):
 				self.data = data #模拟正常发送包
 			# self.lock.release()
@@ -166,16 +168,16 @@ class GoBack(object):
 		ack = rn
 		if ack_OK(ack):
 			self.ack = ack
-			print ('ack is: ' + str(self.ack))
+			#print ('ack is: ' + str(self.ack))
 
 	def r_receive(self):
 		while True:
 			if self.data == '':
 				continue
 			if self.rn == int(self.data[0:2]):
-				# print 'receving: ' + str(self.rn)
+				# #print 'receving: ' + str(self.rn)
 				self.receiveData.append(self.data[2:])
-				# print self.data[2:]
+				# #print self.data[2:]
 				self.data = ''
 				self.r_send(self.rn)
 				self.rn = (self.rn + 1) % (2 ** self.m)
@@ -189,7 +191,7 @@ class GoBack(object):
 			sf = self.sf
 			rn = self.rn
 			ack = self.ack
-			if ack > 0:
+			if ack != None and ack > 0:
 				self.ack2 = (ack + 1) % (self.sw + 1)
 			sizeFace = [(x + sf) % (self.sw + 1) for x in range(self.sw)]
 			senderFace[sn] = 1
@@ -200,18 +202,18 @@ class GoBack(object):
 			self.sizeFace = sizeFace
 			time.sleep(0.1)
 
-def main():
-	goback = GoBack(4)
-	goback.sendProcess()
-	goback.recvProcess()
+# def main():
+# 	goback = GoBack(4)
+# 	goback.sendProcess()
+# 	goback.recvProcess()
 
 
-
-def gobackn_thread_start():
-	print("start the gobackn threading")
-	mainThread = threading.Thread(target=main)
-	mainThread.setDaemon(True)
-	mainThread.start()
+#
+# def gobackn_thread_start():
+# 	#print("start the gobackn threading")
+# 	mainThread = threading.Thread(target=main)
+# 	mainThread.setDaemon(True)
+# 	mainThread.start()
 
 if __name__ == '__main__':
 	mainThread = threading.Thread(target = main)

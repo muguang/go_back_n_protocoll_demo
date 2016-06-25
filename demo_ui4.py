@@ -23,7 +23,7 @@ import threading
 from GoBack5 import *
 
 
-
+b = ''
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -71,6 +71,7 @@ class Ui_MainWindow(object):
         self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
         self.textBrowser.setGeometry(QtCore.QRect(90, 390, 256, 131))
         self.textBrowser.setObjectName("textBrowser")
+
         self.textBrowser_2 = QtWidgets.QTextBrowser(self.centralwidget)
         self.textBrowser_2.setGeometry(QtCore.QRect(400, 390, 301, 131))
         self.textBrowser_2.setObjectName("textBrowser_2")
@@ -113,8 +114,8 @@ class Ui_MainWindow(object):
         # self.pushButton_2.clicked.connect(self.show_receive_info)
 
 
-        self.gobackn = GoBack
 
+        self.gobackn = GoBack(4)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -126,16 +127,33 @@ class Ui_MainWindow(object):
 
     def start_gobackn(self):
 
+        def gobackn_thread():
+
+            self.gobackn.sendProcess()
+            self.gobackn.recvProcess()
+
+
+        thread1 =  threading.Thread(target=gobackn_thread)
+        thread1.start()
+        thread2 = threading.Thread(target=self.check_the_info)
+        thread2.start()
+
         # 线程1  : goback n
-        gobackn_thread_start()
-        self.gobackn()
-        thread2 = threading.Thread(target=)
-
-
+        # self.gobackn()
 
     def check_the_info(self):
         a = self.gobackn.ack2
-        print(a)
+        b = str(a)
+
+
+    def test(self):
+        self.textBrowser.clear()
+        self.textBrowser.append(self.a)
+
+
+
+
+        # self.textBrowser.
 
 
     # def start_sender_receiver(self):

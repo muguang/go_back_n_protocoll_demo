@@ -23,7 +23,7 @@ import threading
 from GoBack5 import *
 
 
-b = ''
+ack2_u = None
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -41,6 +41,8 @@ class Ui_MainWindow(object):
         self.pushButton_3.setGeometry(QtCore.QRect(540, 60, 113, 32))
         self.pushButton_3.setObjectName("pushButton_3")
 
+
+        self.gobackn = GoBack(4)
 
 
         # 批量添加属性
@@ -115,7 +117,7 @@ class Ui_MainWindow(object):
 
 
 
-        self.gobackn = GoBack(4)
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -124,31 +126,28 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText(_translate("MainWindow", "GO_BACK_N"))
         self.pushButton_3.setText(_translate("MainWindow", "STOP"))
 
+    def gobackn_thread(self):
+        self.gobackn.sendProcess()
+        self.gobackn.recvProcess()
 
     def start_gobackn(self):
 
-        def gobackn_thread():
-
-            self.gobackn.sendProcess()
-            self.gobackn.recvProcess()
-
-
-        thread1 =  threading.Thread(target=gobackn_thread)
+        thread1 = threading.Thread(target=self.gobackn_thread)
         thread1.start()
+
         thread2 = threading.Thread(target=self.check_the_info)
-        thread2.start()
+        self.check_the_info()
 
         # 线程1  : goback n
         # self.gobackn()
+        # 两个线程之间不能互相访问
 
     def check_the_info(self):
-        a = self.gobackn.ack2
-        b = str(a)
-
-
-    def test(self):
-        self.textBrowser.clear()
-        self.textBrowser.append(self.a)
+        while True:
+            time.sleep(3)
+            self.textBrowser.clear()
+            print(ack2)
+            self.textBrowser.append(str(ack2))
 
 
 

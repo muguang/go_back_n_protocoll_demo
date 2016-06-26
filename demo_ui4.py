@@ -8,24 +8,47 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
-import sys
-
+# import sys
 from PyQt5 import QtGui
-
-
 from PyQt5.QtGui import *
-
 from PyQt5.QtCore import *
-import  time
 import threading
-# import ARQ_receiver
-# import ARQ_sender
 from GoBack5 import *
 
 
-ack2_u = None
+# d_rn = None
+# d_sn = None
+# d_ack = None
+# d_sf = None
+#
+# def check_the_info_sf(sf):
+#     print("start the check_info function--" + "sf" * 10)
+#     print("sf : ", sf)
+#
+#     d_rn = sf
+#
+#
+# def check_the_info_sn(sn):
+#     print("start the check_info function--" + "sn" * 10)
+#     print("ack: ", sn)
+#     d_sn = sn
+#
+#
+# def check_the_info_ack(ack):
+#     print("start the check_info function--" + "ack" * 10)
+#     print("ack : ", ack)
+#     d_ack = ack
+#
+# def check_the_info_rn(rn):
+#     print("start the check_info function--" + "rn" * 10)
+#     print("ack : ", rn)
+#     d_rn = rn
 
 class Ui_MainWindow(object):
+
+    def __init__(self):
+        self.goback = GoBack(4, [self.test_sf, self.test_sn, None, None])
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 594)
@@ -40,26 +63,24 @@ class Ui_MainWindow(object):
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setGeometry(QtCore.QRect(540, 60, 113, 32))
         self.pushButton_3.setObjectName("pushButton_3")
-
-
-        self.gobackn = gobackn_thread_start
-
-
+        self.gobackn = self.gobackn_thread_start
         # 批量添加属性
-        for i in range(1, 31):
+        for i in range(1, 33):
             setattr(self, "label_{}".format(str(i)), QtWidgets.QLabel(self.centralwidget))
 
         x = 90
         y = 90
         # 批量设置属性
-        for i in range(1, 31):
+        for i in range(1, 33):
             label = getattr(self, "label_{}".format(str(i)))
             _translate = QtCore.QCoreApplication.translate
             label.setText(_translate("MainWindow", "{}".format(str(i))))
-            if i <= 15:
+            if i <= 16:
+                label.setText(_translate("MainWindow", "{}".format(str(i))))
                 label.setGeometry(QtCore.QRect(x, 250, 16, 16))
                 x+=40
-            if i>15:
+            if i>16:
+                label.setText(_translate("MainWindow", "{}".format(str(i-16))))
                 label.setGeometry(QtCore.QRect(y, 310, 16, 16))
                 y+=40
 
@@ -135,30 +156,15 @@ class Ui_MainWindow(object):
         thread1 = threading.Thread(target=self.gobackn)
         thread1.start()
 
-        thread2 = threading.Thread(target=self.check_the_info)
-        thread2.start()
+        # thread2 = threading.Thread(target=self.check_the_info)
+        # thread2.start()
         # self.check_the_info()
 
         # 线程1  : goback n
         # self.gobackn()
         # 两个线程之间不能互相访问
 
-    def check_the_info(self):
 
-        print("start the check_info function--"+"----"*10)
-        while True:
-            time.sleep(1.5)
-
-
-            self.textBrowser.clear()
-            # self.textBrowser.setText("hello")
-            # self.textBrowser.show()
-            self.textBrowser.append("hello")
-
-
-
-
-        # self.textBrowser.
 
 
     # def start_sender_receiver(self):
@@ -209,9 +215,25 @@ class Ui_MainWindow(object):
 
     def show_receiver_info(self):
         pass
-    # def changeColor(self,):
 
-    # def check_
+    def gobackn_thread_start(self):
+
+        print("start go back n protocol")
+        self.goback.sendProcess()
+        self.goback.recvProcess()
+
+    def test1(self, item):
+        # self.textBrowser.clear()
+        self.textBrowser.append(str(item))
+
+    def test_sn(self, item):
+        self.textBrowser_2.append(str(item))
+
+    def test_sf(self, item):
+        self.textBrowser_2.append(str(item))
+
+
+        # def check_
 #
 #
 # if __name__ == '__main__':
@@ -223,3 +245,15 @@ class Ui_MainWindow(object):
 #     mainWindow.show()
 #     sys.exit(app.exec_())
 
+
+
+
+def main():
+    goback = GoBack(4, [None, None, None, None])
+    goback.sendProcess()
+    goback.recvProcess()
+
+
+def gobackn_thread_start():
+    print("start go back n protocol")
+    main()

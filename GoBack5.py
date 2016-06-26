@@ -3,9 +3,13 @@ import threading
 import random
 import time
 
+from demo_ui4 import *
+# import demo_ui4
+
+
 
 class GoBack(object):
-    def __init__(self, m):
+    def __init__(self, m, prnList):
         self.lock = threading.Lock()
         self.lock2 = threading.Lock()
         self.timerInLock = threading.Lock()
@@ -23,6 +27,11 @@ class GoBack(object):
         self.timerIn = 0
         self.timerOut = 0
         self.timerIndex = 0
+        self.prnSf = prnList[0]
+        self.prnSn = prnList[1]
+        self.prnRn = prnList[2]
+        self.prnAck = prnList[3]
+
 
         self.senderFace = [0] * (self.sw + 1)
         self.revFace = [0] * (self.sw + 1)
@@ -30,7 +39,7 @@ class GoBack(object):
         self.ack2 = -1
 
     # self.lis = threading.Thread(target=self.listener)
-    # self.lis.setDaemon(True)
+    # self.lis.spretDaemon(True)
     # self.lis.start()
 
     def sendProcess(self):
@@ -46,6 +55,7 @@ class GoBack(object):
     def timer(self, sn):
 
         def cot(sn, prn=None):
+
             self.lock.acquire()
             timerOut = self.timerOut
             self.lock.release()
@@ -58,8 +68,12 @@ class GoBack(object):
 
                     if i == (num - 1):
                         # self.error = 1
-                        print('sn is: ' + str(sn) + ' rn is: ' + str(self.rn) + ' sf is :' + str(
+                        # print('sn is: ' + str(sn) + ' rn is: ' + str(self.rn) + ' sf is :' + str(
+                        #     self.sf) + ' ack is :' + str(self.ack))
+
+                        string = ('sn is: ' + str(sn) + ' rn is: ' + str(self.rn) + ' sf is :' + str(
                             self.sf) + ' ack is :' + str(self.ack))
+
                         # print self.data[0:2]
                         self.timerInLock.acquire()
                         if self.timerIn == 1:
@@ -91,7 +105,7 @@ class GoBack(object):
             self.timerInLock.release()
             return
 
-        cotThread = threading.Thread(target=cot, args=(sn,))
+        cotThread = threading.Thread(target=cot, args=(sn, self.prnSf))
         cotThread.start()
 
     def check_OK(self, OkNum):  # 用于判断是否发送成功
@@ -109,7 +123,10 @@ class GoBack(object):
             self.timerInLock.release()
             return False
 
-    def s_send(self, prn=None):
+
+
+    def s_send(self):
+        prn = self.prnSn
 
         while True:
 
@@ -127,6 +144,8 @@ class GoBack(object):
                 data = self.framer[self.sn]
 
             print('Sending: ' + str(self.sn))
+
+
             if self.check_OK(random_right):
                 self.data = data  # 模拟正常发送包
             # self.lock.release()
@@ -159,8 +178,8 @@ class GoBack(object):
         else:
             return False
 
-    def r_send(self, rn, prn=None):
-
+    def r_send(self, rn):
+        prn = self.prnAck
         def ack_OK(rnNum):  # 用来模拟ack丢包
 
             ackOk = random.random()
@@ -177,7 +196,9 @@ class GoBack(object):
         if prn != None:
             prn(self.ack)
 
-    def r_receive(self, prn=None):
+
+    def r_receive(self):
+        prn = self.prnRn
         while True:
             if self.data == '':
                 continue
@@ -189,8 +210,9 @@ class GoBack(object):
                 self.r_send(self.rn)
                 self.rn = (self.rn + 1) % (2 ** self.m)
             if prn != None:
-                prn(rn)
+                prn(self.rn)
             time.sleep(0.2)
+
         # def listener(self):
         # 	while True:
         # 		senderFace = [0] * (self.sw + 1)

@@ -18,6 +18,11 @@ class GoBack(object):
         self.sn = 0
         self.sf = 0
         self.rn = 0
+
+        self.sf_str = None
+        self.sn_str = None
+        self.rn_str = None
+        self.ack_str = None
         self.data = ''  # 暂时将发送的数据做为全局变量，也可以更改
         self.receiveData = []  # 暂时为接收到的数据做一个接收器，以后可以取消或者更改
         self.ack = None
@@ -72,7 +77,7 @@ class GoBack(object):
                         print('sn is: ' + str(sn) + ' rn is: ' + str(self.rn) + ' sf is :' + str(
                             self.sf) + ' ack is :' + str(self.ack))
 
-                        string = ('sn is: ' + str(sn) + ' rn is: ' + str(self.rn) + ' sf is :' + str(
+                        self.sf_str = ('sn is: ' + str(sn) + ' rn is: ' + str(self.rn) + ' sf is :' + str(
                             self.sf) + ' ack is :' + str(self.ack))
 
                         # print self.data[0:2]
@@ -83,7 +88,7 @@ class GoBack(object):
                         self.timerInLock.release()
                         break
                     if prn != None:
-                        prn(self.sf)
+                        prn(self.sf, self.sf_str)
                     time.sleep(1)
                 else:
                     # self.sfLock.acquire()
@@ -98,7 +103,8 @@ class GoBack(object):
                     self.lock.release()
                     # self.sfLock.acquire()
                     if prn != None:
-                        prn(self.sf)
+                        prn(self.sf, self.sf_str)
+
                     return
             self.timerInLock.acquire()
             if timerOut == self.timerOut:
@@ -145,6 +151,7 @@ class GoBack(object):
                 data = self.framer[self.sn]
 
             print('Sending: ' + str(self.sn))
+            self.sn_str = 'Sending: ' + str(self.sn)
 
 
             if self.check_OK(random_right):
@@ -158,7 +165,7 @@ class GoBack(object):
             # self.lock.release()
 
             if prn != None:
-                prn(self.sn)
+                prn(self.sn, self.sn_str)
             time.sleep(0.6)
 
 
@@ -194,9 +201,9 @@ class GoBack(object):
         if ack_OK(ack):
             self.ack = ack
             print('ack is: ' + str(self.ack))
-
+            self.ack_str = 'ack is: ' + str(self.ack)
         if prn != None:
-            prn(self.ack)
+            prn(self.ack, self.ack_str)
 
 
     def r_receive(self):

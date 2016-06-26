@@ -47,7 +47,7 @@ from GoBack5 import *
 class Ui_MainWindow(object):
 
     def __init__(self):
-        self.goback = GoBack(4, [self.test_sf, self.test_sn, None, None])
+        self.goback = GoBack(4, [self.test_sf, self.test_sn, self.package_rn, None])
 
         self.u_sf = None
         self.u_sn = None
@@ -183,8 +183,8 @@ class Ui_MainWindow(object):
     #     # thread_sender.start()
 
 
-    def start_change_color(self):
-        self.changeColor(1, 15)
+    # def start_change_color(self):
+    #     self.changeColor(1, 15)
 
 
     # 改变 (start -> end)的label的颜色
@@ -206,40 +206,56 @@ class Ui_MainWindow(object):
 
         a = start_n
         b = end_n
-        if a>0:
+        if a != None and a>0:
             for i in range(start_n):
                 list[i+1].setAutoFillBackground(True)
                 list[i+1].setPalette(palette2)
+        if a != None and b != None and b-a+1>0:
+            for i in range(b-a+1):
+                list[a+i-1].setAutoFillBackground(True)
+                list[a + i - 1].setPalette(palette1)
 
-        for i in range(b-a+1):
-            list[a+i-1].setAutoFillBackground(True)
-            list[a + i - 1].setPalette(palette1)
+    def changeColor_2(self, start_n, end_n):
+        palette1 = QPalette()
+        palette2 = QPalette()
+        # 设为绿色
+        palette1.setColor(QPalette.Background, QColor(192, 253, 123))
+        # 设为无色
+        palette2.setColor(QPalette.Background, QColor(237, 237, 237))
 
+        list = [self.label_17, self.label_18, self.label_19, self.label_20, self.label_21,
+                self.label_22, self.label_23, self.label_24, self.label_25, self.label_26,
+                self.label_27, self.label_28, self.label_29, self.label_30, self.label_31,
+                self.label_32]
 
+        a = start_n
+        b = end_n
+        if a != None and a > 0:
+            for i in range(start_n):
+                list[i + 1].setAutoFillBackground(True)
+                list[i + 1].setPalette(palette2)
+        if b - a + 1 > 0:
+            for i in range(b - a + 1):
+                list[a + i - 1].setAutoFillBackground(True)
+                list[a + i - 1].setPalette(palette1)
 
-
-        # self.label_1.setAutoFillBackground(True)
-        # self.label_1.setPalette(palette1)
-        # self.label_2.setAutoFillBackground(True)
-        # self.label_2.setPalette(palette1)
-
-    def changeColor_2(self):
+    def changeColor_loss(self, start_n,):
         pass
 
 
 
-    def show_sender_info(self):
-        # self.textBrowser.setText(msg)
-        pass
+    def package_rn(self, item):
+        print("rn"*10, end="")
+        print(":", item)
 
-    def show_receiver_info(self):
-        pass
+        self.textBrowser.append("loss happened")
 
-    def gobackn_thread_start(self):
+        # self.textBrowser.moveCursor(QTextCursor.End)
 
-        print("start go back n protocol")
-        self.goback.sendProcess()
-        self.goback.recvProcess()
+    def package_ack(self,item):
+        print("ack"*10+item)
+
+        self.textBrowser_2.append("receiver :"+item)
 
     # def test1(self, item):
         # self.textBrowser.clear()
@@ -247,43 +263,48 @@ class Ui_MainWindow(object):
 
         # self.textBrowser.append(str(item))
 
-    def test_sf(self, item):
-        print("sf"*20, end="")
+
+
+    def test_sf(self, item, sf_str):
+        print("sf"*10, end="")
         print(": ", item)
         self.u_sf = item
-        self.textBrowser.append(str(item))
-        self.textBrowser.moveCursor(QtGui.QTextCursor.End)
+        self.textBrowser_2.append(sf_str)
+        tt = 0
+        if tt > 0:
+            self.textBrowser_2.moveCursor(QtGui.QTextCursor.End)
+        tt += 1
 
-    def test_sn(self, item):
-        print("sn"*20, end="")
+
+        # self.changeColor(self.u_sf, self.u_sn)
+        # self.changeColor_2(self.u_sf, self.u_sn)
+
+    def test_sn(self, item, sn_str):
+        print("sn"*10, end="")
         print(": ", item)
         self.u_sn = item
-        self.textBrowser_2.append(str(item))
-        self.textBrowser_2.moveCursor(QtGui.QTextCursor.End)
+
+        self.textBrowser.append(sn_str)
+
+        tt = 0
+        if tt > 0:
+            self.textBrowser_2.moveCursor(QtGui.QTextCursor.End)
+        tt += 1
 
         self.changeColor(self.u_sf, self.u_sn)
+        self.changeColor_2(self.u_sf, self.u_sn)
 
         # self.changeColor(sn,)
 
+    def gobackn_thread_start(self):
+
+        print("start go back n protocol")
+        self.goback.sendProcess()
+        self.goback.recvProcess()
+
+        # def
 
 
-    # def test_rn(self, item):
-    #     self.textBrowser_2.append(str(item))
-    #
-    #
-    # def test_ack(self, item):
-    #     self.textBrowser_2.append(str(item))
-    #     # def check_
-#
-#
-# if __name__ == '__main__':
-#
-#     app = QApplication(sys.argv)
-#     mainWindow = QMainWindow()
-#     ui = Ui_MainWindow()
-#     ui.setupUi(mainWindow)
-#     mainWindow.show()
-#     sys.exit(app.exec_())
 
 
 

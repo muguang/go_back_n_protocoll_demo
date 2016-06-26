@@ -209,24 +209,21 @@ class GoBack(object):
 
             time.sleep(0.1)
 
-            # def main():
-            # 	goback = GoBack(4)
-            # 	goback.sendProcess()
-            # 	goback.recvProcess()
-            #
-            #
-
-            # def gobackn_thread_start():
-            # 	print("start the gobackn threading")
-            # mainThread = threading.Thread(target=main)
-            # mainThread.setDaemon(True)
-            # mainThread.start()
+def main():
+	goback = GoBack(4)
+	goback.sendProcess()
+	goback.recvProcess()
 
 
-#
-#
-#
-#
+
+def gobackn_thread_start():
+	print("start the gobackn threading")
+mainThread = threading.Thread(target=main)
+mainThread.setDaemon(True)
+mainThread.start()
+
+
+
 if __name__ == '__main__':
     mainThread = threading.Thread(target=main)
     mainThread.setDaemon(True)

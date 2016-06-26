@@ -49,6 +49,11 @@ class Ui_MainWindow(object):
     def __init__(self):
         self.goback = GoBack(4, [self.test_sf, self.test_sn, None, None])
 
+        self.u_sf = None
+        self.u_sn = None
+        self.u_ack = None
+        self.u_rn = None
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 594)
@@ -79,6 +84,7 @@ class Ui_MainWindow(object):
                 label.setText(_translate("MainWindow", "{}".format(str(i))))
                 label.setGeometry(QtCore.QRect(x, 250, 16, 16))
                 x+=40
+
             if i>16:
                 label.setText(_translate("MainWindow", "{}".format(str(i-16))))
                 label.setGeometry(QtCore.QRect(y, 310, 16, 16))
@@ -185,18 +191,30 @@ class Ui_MainWindow(object):
     def changeColor(self, start_n, end_n):
 
         palette1 = QPalette()
+        palette2 = QPalette()
         # palette1.setColor(QPalette.WindowText, QColor(192, 253, 123))
+
+        # 设为绿色
         palette1.setColor(QPalette.Background, QColor(192, 253, 123))
+
+        # 设为无色
+        palette2.setColor(QPalette.Background, QColor(237, 237, 237))
+
         list = [self.label_1, self.label_2, self.label_3, self.label_4, self.label_5, self.label_6,
                 self.label_7,self.label_8, self.label_9, self.label_10, self.label_11, self.label_12,
-                self.label_13, self.label_14, self.label_15]
+                self.label_13, self.label_14, self.label_15, self.label_16]
 
         a = start_n
         b = end_n
+        if a>0:
+            for i in range(start_n):
+                list[i+1].setAutoFillBackground(True)
+                list[i+1].setPalette(palette2)
 
         for i in range(b-a+1):
             list[a+i-1].setAutoFillBackground(True)
             list[a + i - 1].setPalette(palette1)
+
 
 
 
@@ -205,7 +223,8 @@ class Ui_MainWindow(object):
         # self.label_2.setAutoFillBackground(True)
         # self.label_2.setPalette(palette1)
 
-
+    def changeColor_2(self):
+        pass
 
 
 
@@ -222,18 +241,39 @@ class Ui_MainWindow(object):
         self.goback.sendProcess()
         self.goback.recvProcess()
 
-    def test1(self, item):
+    # def test1(self, item):
         # self.textBrowser.clear()
-        self.textBrowser.append(str(item))
 
-    def test_sn(self, item):
-        self.textBrowser_2.append(str(item))
+
+        # self.textBrowser.append(str(item))
 
     def test_sf(self, item):
+        print("sf"*20, end="")
+        print(": ", item)
+        self.u_sf = item
+        self.textBrowser.append(str(item))
+        self.textBrowser.moveCursor(QtGui.QTextCursor.End)
+
+    def test_sn(self, item):
+        print("sn"*20, end="")
+        print(": ", item)
+        self.u_sn = item
         self.textBrowser_2.append(str(item))
+        self.textBrowser_2.moveCursor(QtGui.QTextCursor.End)
+
+        self.changeColor(self.u_sf, self.u_sn)
+
+        # self.changeColor(sn,)
 
 
-        # def check_
+
+    # def test_rn(self, item):
+    #     self.textBrowser_2.append(str(item))
+    #
+    #
+    # def test_ack(self, item):
+    #     self.textBrowser_2.append(str(item))
+    #     # def check_
 #
 #
 # if __name__ == '__main__':

@@ -27,6 +27,7 @@ class GoBack(object):
         self.timerIn = 0
         self.timerOut = 0
         self.timerIndex = 0
+
         self.prnSf = prnList[0]
         self.prnSn = prnList[1]
         self.prnRn = prnList[2]
@@ -68,8 +69,8 @@ class GoBack(object):
 
                     if i == (num - 1):
                         # self.error = 1
-                        # print('sn is: ' + str(sn) + ' rn is: ' + str(self.rn) + ' sf is :' + str(
-                        #     self.sf) + ' ack is :' + str(self.ack))
+                        print('sn is: ' + str(sn) + ' rn is: ' + str(self.rn) + ' sf is :' + str(
+                            self.sf) + ' ack is :' + str(self.ack))
 
                         string = ('sn is: ' + str(sn) + ' rn is: ' + str(self.rn) + ' sf is :' + str(
                             self.sf) + ' ack is :' + str(self.ack))
@@ -159,6 +160,7 @@ class GoBack(object):
             if prn != None:
                 prn(self.sn)
             time.sleep(0.6)
+
 
             # 目前并没有在这个函数里面去修改self.sf的值，而是在send函数中修改，虽然比较奇怪
 

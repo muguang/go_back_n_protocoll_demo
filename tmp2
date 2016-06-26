@@ -1,5 +1,4 @@
-
-"""# -*- coding:utf8 -*-
+# -*- coding:utf8 -*-
 import threading
 import random
 import time
@@ -218,4 +217,3 @@ if __name__ == '__main__':
     mainThread.start()
     while True:
         pass
-"""

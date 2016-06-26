@@ -42,7 +42,7 @@ class Ui_MainWindow(object):
         self.pushButton_3.setObjectName("pushButton_3")
 
 
-        self.gobackn = GoBack(4)
+        self.gobackn = gobackn_thread_start
 
 
         # 批量添加属性
@@ -126,28 +126,34 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText(_translate("MainWindow", "GO_BACK_N"))
         self.pushButton_3.setText(_translate("MainWindow", "STOP"))
 
-    def gobackn_thread(self):
-        self.gobackn.sendProcess()
-        self.gobackn.recvProcess()
+    # def gobackn_thread(self):
+    #     self.gobackn.sendProcess()
+    #     self.gobackn.recvProcess()
 
     def start_gobackn(self):
 
-        thread1 = threading.Thread(target=self.gobackn_thread)
+        thread1 = threading.Thread(target=self.gobackn)
         thread1.start()
 
         thread2 = threading.Thread(target=self.check_the_info)
-        self.check_the_info()
+        thread2.start()
+        # self.check_the_info()
 
         # 线程1  : goback n
         # self.gobackn()
         # 两个线程之间不能互相访问
 
     def check_the_info(self):
+
+        print("start the check_info function--"+"----"*10)
         while True:
-            time.sleep(3)
+            time.sleep(1.5)
+
+
             self.textBrowser.clear()
-            print(ack2)
-            self.textBrowser.append(str(ack2))
+            # self.textBrowser.setText("hello")
+            # self.textBrowser.show()
+            self.textBrowser.append("hello")
 
 
 
@@ -206,14 +212,14 @@ class Ui_MainWindow(object):
     # def changeColor(self,):
 
     # def check_
-
-
-if __name__ == '__main__':
-
-    app = QApplication(sys.argv)
-    mainWindow = QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(mainWindow)
-    mainWindow.show()
-    sys.exit(app.exec_())
+#
+#
+# if __name__ == '__main__':
+#
+#     app = QApplication(sys.argv)
+#     mainWindow = QMainWindow()
+#     ui = Ui_MainWindow()
+#     ui.setupUi(mainWindow)
+#     mainWindow.show()
+#     sys.exit(app.exec_())
 

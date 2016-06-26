@@ -3,12 +3,6 @@ import threading
 import random
 import time
 
-ack_g = None
-sendFace = None
-revFace = None
-sizeFace = None
-ack2 = None
-
 
 class GoBack(object):
     def __init__(self, m):
@@ -30,15 +24,14 @@ class GoBack(object):
         self.timerOut = 0
         self.timerIndex = 0
 
-        #  interface
-
         self.senderFace = [0] * (self.sw + 1)
         self.revFace = [0] * (self.sw + 1)
         self.sizeFace = [0] * (self.sw + 1)
         self.ack2 = -1
-        self.lis = threading.Thread(target=self.listener)
-        self.lis.setDaemon(True)
-        self.lis.start()
+
+    # self.lis = threading.Thread(target=self.listener)
+    # self.lis.setDaemon(True)
+    # self.lis.start()
 
     def sendProcess(self):
         s_send_thread = threading.Thread(target=self.s_send)
@@ -52,7 +45,7 @@ class GoBack(object):
 
     def timer(self, sn):
 
-        def cot(sn):
+        def cot(sn, prn=None):
             self.lock.acquire()
             timerOut = self.timerOut
             self.lock.release()
@@ -65,15 +58,17 @@ class GoBack(object):
 
                     if i == (num - 1):
                         # self.error = 1
-                        # print('sn is: ' + str(sn) + ' rn is: ' + str(self.rn) + ' sf is :' + str(
-                        #	self.sf) + ' ack is :' + str(self.ack))
-                        # ##print self.data[0:2]
+                        print('sn is: ' + str(sn) + ' rn is: ' + str(self.rn) + ' sf is :' + str(
+                            self.sf) + ' ack is :' + str(self.ack))
+                        # print self.data[0:2]
                         self.timerInLock.acquire()
                         if self.timerIn == 1:
                             self.error = 1
                             self.sn = self.sf
                         self.timerInLock.release()
                         break
+                    if prn != None:
+                        prn(self.sf)
                     time.sleep(1)
                 else:
                     # self.sfLock.acquire()
@@ -87,6 +82,8 @@ class GoBack(object):
                     self.timerOut = self.timerOut + 1
                     self.lock.release()
                     # self.sfLock.acquire()
+                    if prn != None:
+                        prn(self.sf)
                     return
             self.timerInLock.acquire()
             if timerOut == self.timerOut:
@@ -112,7 +109,7 @@ class GoBack(object):
             self.timerInLock.release()
             return False
 
-    def s_send(self):
+    def s_send(self, prn=None):
 
         while True:
 
@@ -129,7 +126,7 @@ class GoBack(object):
             else:
                 data = self.framer[self.sn]
 
-            # print ('Sending: ' + str(self.sn))
+            print('Sending: ' + str(self.sn))
             if self.check_OK(random_right):
                 self.data = data  # 模拟正常发送包
             # self.lock.release()
@@ -139,9 +136,13 @@ class GoBack(object):
             # self.lock.acquire()
             self.sn = (self.sn + 1) % (self.sw + 1)
             # self.lock.release()
+
+            if prn != None:
+                prn(self.sn)
             time.sleep(0.6)
 
-    # 目前并没有在这个函数里面去修改self.sf的值，而是在send函数中修改，虽然比较奇怪
+            # 目前并没有在这个函数里面去修改self.sf的值，而是在send函数中修改，虽然比较奇怪
+
     def check_ack(self, sn):  # 这个需要判断ack是否在目前的sn之后和是否在窗口之内，极其重要的一个函数
 
         nowSf = self.sf
@@ -158,7 +159,7 @@ class GoBack(object):
         else:
             return False
 
-    def r_send(self, rn):
+    def r_send(self, rn, prn=None):
 
         def ack_OK(rnNum):  # 用来模拟ack丢包
 
@@ -171,57 +172,54 @@ class GoBack(object):
         ack = rn
         if ack_OK(ack):
             self.ack = ack
-            # print ('ack is: ' + str(self.ack))
+            print('ack is: ' + str(self.ack))
 
-    def r_receive(self):
+        if prn != None:
+            prn(self.ack)
+
+    def r_receive(self, prn=None):
         while True:
             if self.data == '':
                 continue
             if self.rn == int(self.data[0:2]):
-                # #print 'receving: ' + str(self.rn)
+                # print 'receving: ' + str(self.rn)
                 self.receiveData.append(self.data[2:])
-                # #print self.data[2:]
+                # print self.data[2:]
                 self.data = ''
                 self.r_send(self.rn)
                 self.rn = (self.rn + 1) % (2 ** self.m)
+            if prn != None:
+                prn(rn)
             time.sleep(0.2)
+        # def listener(self):
+        # 	while True:
+        # 		senderFace = [0] * (self.sw + 1)
+        # 		revFace = [0] * (self.sw + 1)
+        # 		sizeFace = [0] * (self.sw + 1)
+        # 		sn = self.sn
+        # 		sf = self.sf
+        # 		rn = self.rn
+        # 		ack = self.ack
+        # 		self.ack2 = (ack + 1) % (self.sw + 1)
+        # 		sizeFace = [(x + sf) % (self.sw + 1) for x in range(self.sw)]
+        # 		senderFace[sn] = 1
+        # 		senderFace[sf] = -1
+        # 		revFace[rn] = 1
+        # 		self.senderFace = senderFace
+        # 		self.revFace = revFace
+        # 		self.sizeFace = sizeFace
+        # 		time.sleep(0.1)
 
-    def listener(self):
-        global senderFace
-        global revFace
-        global sizeFace
-        while True:
-
-            senderFace = [0] * (self.sw + 1)
-            revFace = [0] * (self.sw + 1)
-            sizeFace = [0] * (self.sw + 1)
-            sn = self.sn
-            sf = self.sf
-            rn = self.rn
-            ack = self.ack
-            if ack != None and ack > 0:
-                global ack2
-                ack2 = (ack + 1) % (self.sw + 1)
-            sizeFace = [(x + sf) % (self.sw + 1) for x in range(self.sw)]
-            senderFace[sn] = 1
-            senderFace[sf] = -1
-            revFace[rn] = 1
-
-            time.sleep(0.1)
 
 def main():
-	goback = GoBack(4)
-	goback.sendProcess()
-	goback.recvProcess()
-
+    goback = GoBack(4)
+    goback.sendProcess()
+    goback.recvProcess()
 
 
 def gobackn_thread_start():
-	print("start the gobackn threading")
-mainThread = threading.Thread(target=main)
-mainThread.setDaemon(True)
-mainThread.start()
-
+    print("start go back n protocol")
+    main()
 
 
 if __name__ == '__main__':
